@@ -1,0 +1,264 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fdfbf7;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Garland */
+.garland {
+    position: absolute;
+    top: -8px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    z-index: 10;
+    padding: 0 10px;
+}
+
+.garland li {
+    width: 10px;
+    height: 16px;
+    border-radius: 50%;
+    background: #e2bada;
+    box-shadow: 0 2px 10px #e2bada;
+    animation: glow 1.6s infinite alternate;
+}
+
+.garland li:nth-child(2n) {
+    background: #fce4ec;
+    box-shadow: 0 2px 10px #fce4ec;
+    animation-delay: 0.4s;
+}
+
+.garland li:nth-child(3n) {
+    background: #d8b4e2;
+    box-shadow: 0 2px 10px #d8b4e2;
+    animation-delay: 0.8s;
+}
+
+@keyframes glow {
+    from { opacity: 0.3; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1.1); }
+}
+
+/* Emoji rain */
+.emoji-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.falling-emoji {
+    position: absolute;
+    top: -40px;
+    opacity: 0.75;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(105vh) rotate(360deg); }
+}
+
+/* Container & Typography */
+.container {
+    text-align: center;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-family: 'Alex Brush', cursive;
+    font-size: 5.2rem;
+    color: #9d6392;
+    font-weight: 400;
+    margin-bottom: -5px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(157, 99, 146, 0.15);
+}
+
+.subtitle {
+    color: #8c7b8c;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+/* --- AESTHETIC ENVELOPE (Based on reference) --- */
+
+.envelope-wrapper {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.envelope-wrapper:hover {
+    transform: translateY(-10px);
+}
+
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    background-color: #f7f3eb; /* Cream/Ivory */
+    background-image: 
+        radial-gradient(circle at 15% 20%, rgba(160, 150, 130, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 85% 15%, rgba(160, 150, 130, 0.1) 1px, transparent 1px);
+    background-size: 15px 15px;
+    border-radius: 4px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Add floral pattern to the corner (CSS gradient trick) */
+.envelope::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 120px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path d="M10 90 C 10 90, 30 70, 50 80 M20 85 C 20 85, 40 65, 35 50 M30 80 C 30 80, 50 60, 60 70 M40 75 C 40 75, 60 55, 70 65" stroke="%239c8c7c" fill="none" stroke-width="1"/></svg>');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.envelope .front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* Create the envelope fold lines using gradients */
+    background-image: 
+        linear-gradient(to bottom right, transparent 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0,0,0,0.03) 51%, transparent 51%),
+        linear-gradient(to top right, transparent 50%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.03) 51%, transparent 51%);
+    background-size: 100% 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Realistic Wax Seal (Based on Reference) */
+.wax-seal {
+    width: 48px;
+    height: 48px;
+    background: radial-gradient(circle at 30% 30%, #eacb8a 0%, #b89151 70%, #9c7b41 100%); /* Golden wax */
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6e5630; /* Dark gold/bronze for the plant icon */
+    transform: rotate(-5deg);
+    position: relative;
+    border: 2px solid rgba(110, 86, 48, 0.3);
+}
+
+.wax-seal .plant-icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.9;
+}
+
+/* Seal 'messy' edges for realism */
+.wax-seal::after {
+    content: '';
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    border-radius: 50%;
+    background: inherit;
+    filter: blur(1px);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+/* Envelope Shadow */
+.envelope-shadow {
+    position: absolute;
+    bottom: -15px;
+    left: 5%;
+    width: 90%;
+    height: 15px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    z-index: -1;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.envelope-wrapper:hover .envelope-shadow {
+    transform: scale(0.9);
+    opacity: 0.6;
+}
+
+/* --- PHOTO MODAL (Fixed Opening) --- */
+.photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(45, 30, 43, 0.85); /* Slightly darker, purple-tinted bg */
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.photo-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-img {
+    max-width: 90%;
+    max-height: 90vh; /* Allow max possible height */
+    border-radius: 12px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.8);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.photo-modal.show .modal-img {
+    transform: scale(1); /* Ensure it scales to full size */
+}
+
+.close-modal {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 42px;
+    font-weight: 300;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+}
+
+.close-modal:hover {
+    opacity: 0.7;
+}
